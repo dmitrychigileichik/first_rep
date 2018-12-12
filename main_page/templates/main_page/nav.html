@@ -1,0 +1,10 @@
+<nav class="nav nav-pills">
+    <a class="nav-link {% if page == 'all' %}active{% endif %}" href="{% url 'post:list' %}">All posts</a>
+    <a class="nav-link {% if page == 'sc' %}active{% endif %}" href="{% url 'post:science_list' %}">Science posts</a>
+    <a class="nav-link {% if page == 'tch' %}active{% endif %}" href="{% url 'post:technologies_list' %}">Technologies posts</a>
+    <a class="nav-link {% if page == 'home' %}active{% endif %}" href="{% url 'main_page:home' %}">About project</a>
+    <form class="form-inline" method="GET" action="{% url 'post:search' %}">
+    <input class="form-control mr-sm-2" type="text" name="sr" placeholder="Search" maxlength="20" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>

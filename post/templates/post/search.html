@@ -1,0 +1,28 @@
+{% extends 'main_page/index.html' %}
+{% block title %}Search{% endblock %}
+
+
+{% block header %}
+    <h1>Search posts</h1>
+{% endblock %}
+{% block content %}
+{% include 'main_page/nav.html' with page='src' %}
+<table>
+    <thead>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Create date</th>
+        <th>Publish date</th>
+        <th>Category</th>
+    </thead>
+    <tbody>
+        {% for post in post_lst %}
+        <tr>
+            <td><a href="{% url 'post:detail' pk=post.pk %}">{{ post.title }}</a></td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.created_date }}</td>
+            <td>{{ post.published_date }}</td>
+            <td>{{ post.category.name|default_if_none:'-----' }}</td>
+        </tr>
+        {% endfor %}
+{% endblock %}

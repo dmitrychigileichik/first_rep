@@ -1,0 +1,50 @@
+{% extends 'main_page/index.html' %}
+{% block title %}All posts{% endblock %}
+
+
+{% block header %}
+{{ block.super }}
+    <h1>All posts</h1>
+{% endblock %}
+{% block content %}
+{% include 'main_page/nav.html' with page='all' %}
+<table>
+    <thead>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Create date</th>
+        <th>Publish date</th>
+        <th>Category</th>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td><a href="{% url 'post:detail' pk=post.pk %}">{{ post.title }}</a></td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.created_date }}</td>
+            <td>{{ post.published_date }}</td>
+            <td>{{ post.category.name|default_if_none:'-----' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+ 
+    {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}">←</a>
+    {% endif %}
+ 
+    {% for num in posts.paginator.page_range %}
+        {% if num == posts.number %}
+            <span class="current"><b>{{ num }}</b></span>
+        {% else %}
+            <a href="?page={{ num }}"> {{ num }}</a>
+        {% endif %} 
+    {% endfor %}
+ 
+    {% if post_title_list.has_next %}
+        <a href="?page={{ post_title_list.next_page_number }}">→</a>
+    {% endif %}
+ 
+</div>
+{% endblock %}

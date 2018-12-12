@@ -1,0 +1,29 @@
+{% extends 'main_page/index.html' %}
+{% block title %}Science posts{% endblock %}
+
+
+{% block header %}
+{{ block.super }}
+    <h1>Science posts</h1>
+{% endblock %}
+{% block content %}
+{% include 'main_page/nav.html' with page='sc' %}
+<table>
+    <thead>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Create date</th>
+        <th>Publish date</th>
+        <th>Category</th>
+    </thead>
+    <tbody>
+        {% for post in post_list %}
+        <tr>
+            <td><a href="{% url 'post:detail' pk=post.pk %}">{{ post.title }}</a></td>
+            <td>{{ post.author }}</td>
+            <td>{{ post.created_date }}</td>
+            <td>{{ post.published_date }}</td>
+            <td>{{ post.category.name|default_if_none:'-----' }}</td>
+        </tr>
+        {% endfor %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{{ block.super }}
+{% block title %}Main{% endblock %}
+{% block header %}
+    <ul class="nav nav-tabs">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+            <a href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'register' %}">Register</a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+{% block content %}
+    {% include 'main_page/nav.html' with page='home' %}
+{% endblock %}
