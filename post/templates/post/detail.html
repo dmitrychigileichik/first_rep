@@ -39,6 +39,7 @@
 {% else %}
 <h1>No posts found!</h1>
 {% endif %}
+{% if request.user.is_authenticated %}
 {% with comments.count as total_comments %}
     <h2>
         {{ total_comments }} comment{{ total_comments|pluralize }}
@@ -64,5 +65,8 @@
         {% csrf_token %}
         <p><input type="submit" value="Add comment"></p>
     </form>
+{% endif %}
+{% else %}
+You have no rights to view and add comments on this page
 {% endif %}
 {% endblock %}

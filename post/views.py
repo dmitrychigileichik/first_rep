@@ -5,6 +5,7 @@ from post.forms import CommentForm
 from django.contrib import auth
 from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class PostsListView(ListView):
@@ -67,6 +68,6 @@ class SciencePostsListView(ListView):
     template_name = 'post/sc_post_title_list.html'
     queryset = models.Post.objects.filter(category=1).select_related('category')
 
-class TechnologiesPostsListView(ListView):
+class TechnologiesPostsListView(LoginRequiredMixin, ListView):
     template_name = 'post/tch_post_title_list.html'
     queryset = models.Post.objects.filter(category=2).select_related('category')

@@ -1,3 +1,21 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 
-# Create your tests here.
+from main_page import defines
+
+class UrlsTest(TestCase):
+    def setUP():
+        self.client = Client()
+
+    def test_home_page_status(self):
+        response = self.client.get('')
+        self.assertEqual(response.status_code, defines.HTTP_200_OK)
+
+
+class ContentsTest(TestCase):
+    def setUP():
+        self.client = Client()
+
+    def test_home_page_status(self):
+        response = self.client.get('')
+        self.assertContains(response, 'Main Page')
+
