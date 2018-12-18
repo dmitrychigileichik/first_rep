@@ -6,6 +6,10 @@ from django.contrib import auth
 from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
+
 
 
 class PostsListView(ListView):
@@ -27,6 +31,18 @@ class PostsListView(ListView):
 class PostDetailView(DetailView):
     template_name = 'post/detail.html'
     model = models.Post
+
+
+def get_object(self):
+        pk = self.kwargs['pk']
+        key_name = f'post.{pk}'
+        obj = cache.get(key_name)
+        if not obj:
+            print("No cached value found.")
+            obj = super().get_object()
+            cache.set(key_name, obj)
+        return obj
+
 
 def post_detail(request, pk):
     post = get_object_or_404( models.Post, pk=pk)
