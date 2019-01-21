@@ -41,4 +41,4 @@ def verify(request, uuid):
     user.is_verified = True
     user.save()
  
-    return redirect('mainpage:home')
+    return redirect('main_page:home')

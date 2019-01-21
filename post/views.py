@@ -12,7 +12,7 @@ from django.core.cache import cache
 
 
 
-class PostsListView(ListView):
+class PostsListView(LoginRequiredMixin,ListView):
     template_name = 'post/post_title_list.html'
     context_object_name = 'posts'
  
@@ -80,7 +80,7 @@ def post_search(request):
         }
     )   
 
-class SciencePostsListView(ListView):
+class SciencePostsListView(LoginRequiredMixin,ListView):
     template_name = 'post/sc_post_title_list.html'
     queryset = models.Post.objects.filter(category=1).select_related('category')
 
